@@ -39,7 +39,7 @@ func (p *productCatalog) Watch(req *healthpb.HealthCheckRequest, ws healthpb.Hea
 }
 
 func (p *productCatalog) ListProducts(context.Context, *pb.Empty) (*pb.ListProductsResponse, error) {
-	time.Sleep(extraLatency)
+	time.Sleep(1 * time.Seconds)
 
 	return &pb.ListProductsResponse{Products: p.parseCatalog()}, nil
 }
@@ -64,7 +64,8 @@ func (p *productCatalog) SearchProducts(ctx context.Context, req *pb.SearchProdu
 	time.Sleep(extraLatency)
 
 	var ps []*pb.Product
-	for _, product := range p.parseCatalog() {
+	products := p.parseCatalog()
+	for _, product := range products {
 		if strings.Contains(strings.ToLower(product.Name), strings.ToLower(req.Query)) ||
 			strings.Contains(strings.ToLower(product.Description), strings.ToLower(req.Query)) {
 			ps = append(ps, product)
