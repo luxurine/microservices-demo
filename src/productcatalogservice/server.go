@@ -43,7 +43,6 @@ import (
 var (
 	catalogMutex *sync.Mutex
 	log          *logrus.Logger
-	extraLatency time.Duration
 
 	port = "3550"
 
